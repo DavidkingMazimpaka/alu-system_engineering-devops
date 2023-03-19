@@ -9,3 +9,4 @@ KEY_PASSPHRASE="betty"
 ssh-keygen -t rsa -b $KEY_BITS -f ~/.ssh/$KEY_NAME -N $KEY_PASSPHRASE
 # Output the public key for easy copy-pasting
 echo "Here is the public key:"
+cat ~/.ssh/$KEY_NAME.pub
