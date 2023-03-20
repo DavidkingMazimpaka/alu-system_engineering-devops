@@ -1,0 +1,4 @@
+Host *
+BatchMode
+IdentityFile ~/.ssh/school
+PasswordAuthentication no
