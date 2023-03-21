@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
-# creating RSA pair
-ssh-keygen -f school -N betty -b 4096
+# Set the key filename
+keyfile="school"
+# Generate the RSA key pair
+ssh-keygen -b 4096 -t rsa -f "$keyfile" -N "betty"
+# Print a success message and the key fingerprint
+echo "RSA key pair created successfully:"
+echo "Fingerprint: $(ssh-keygen -lf $keyfile)"
+
