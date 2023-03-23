@@ -1,0 +1,6 @@
+#!/usr/bin/env bash 
+# installing Nginx and performing actions
+apt-get update -y
+apt-get install nginx -y
+sed -ie "s/^server {$/server {\n\trewrite ^\/redirect_me https:\/\/www.youtube.com/watch?v=mC-zw0zCCtg permanent;/g" /etc/nginx/sites-available/default
+service nginx restart
