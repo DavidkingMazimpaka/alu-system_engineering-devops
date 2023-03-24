@@ -1,15 +1,10 @@
 #!/usr/bin/env bash
-# installing nginx to create html pages
-REDIR="\\\tlocation /redirect_me {\n\t\t return 301 https://www.youtube.com/watch?v=mC-zw0zCCtg;\n\t}\n"
+# install nginx to create html pages - 404
 ERRDIR="\\\n\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}\n"
-SRC="etc/nginx/sites-available/default"
-apt-get update -y
-apt-get install nginx -y
+SRC="/etc/nginx/sites-available/default"
+apt-get -y update
+apt-get -y install nginx
 sudo service nginx start
-# Configure Nginx
-echo "Holberton School" | sudo tee /var/www/html/index.nginx-debian.html
-sudo sed -i "30i $REDIR" $SRC
 echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
 sudo sed -i "40i $ERRDIR" $SRC
-# Restart Nginx 
 sudo service nginx restart
