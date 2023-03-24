@@ -5,6 +5,9 @@ echo "Holberton School" > sudo tee /var/www/html/index.nginx-debian.html
 
 # configuring the the 404 error custom page
 echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
-sed -ie "s/^\t\tlocation = \/custom_404.html {\n\t\troot \/usr\/share\/nginx\/html;\n\t\tinternal;\n\t}/g" /usr/share/nginx/html/custom_404.html | sudo tee /etc/nginx/sites-available/default
+ERRDIR="\\\n\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}\n"
+SRC="/etc/nginx/sites-available/default"
+echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
+sudo sed -ie "$ERRDIR" $SRC
 # Restart nginx
 sudo service nginx restart
