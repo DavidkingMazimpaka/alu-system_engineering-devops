@@ -2,7 +2,5 @@
 # installing Nginx and performing actions
 apt-get update -y
 apt-get install nginx -y
-REDIR="\\\tlocation /redirect_me {\n\t\t return 301 https://www.youtube.com/watch?v=mC-zw0zCCtg;\n\t}\n"
-SRC="etc/nginx/sites-available/default"
-sudo sed -i "30i $REDIR" $SRC
+sed -ie "s/^server {$/server {\n\trewrite ^\/redirect_me https:\/\/www.youtube.com\/watch?v=mC-zw0zCCtg permanent;/g" /etc/nginx/sites-available/default
 service nginx restart
