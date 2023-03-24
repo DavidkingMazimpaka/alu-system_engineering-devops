@@ -1,24 +1,17 @@
-#!/usr/bin/env bash 
-# installing Nginx and performing actions
-apt-get update -y
-apt-get install nginx -y
-ERRDIR="\\\n\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\troot \/usr\/share\/nginx\/html;\n\t\tinternal;\n\t}\n"
-HEADER="\\\n\tadd_header X-Served-By \$HOSTNAME;\n"
-SRC="/etc/nginx/sites-available/default"
-printf %s "server {
-     listen      80 default_server;
-     listen      [::]:80 default_server;
-     root        /etc/nginx/html;
-     index       index.html index.htm;
-     location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=mC-zw0zCCtg;
-    }
+#!/usr/bin/env bash
+#Install and config Ngin
+sudo apt update -y
+sudo apt install nginx -y
+new_config=\
+"server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+		root /var/www/html;
+	index index.html index.html index.nginx-debian.html;
+	server_name _;
+	add_header X-Served-By $HOSTNAME;
 }
-" > /etc/nginx/sites-available/default
-echo "Holberton School" | sudo tee /var/www/html/index.nginx-debian.html
-echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
-sudo sed -i "40i $ERRDIR" $SRC
-sudo sed -i "28i $HEADER" $SRC
-# Restart nginx
+"
+sudo chown -R "$USER":"$USER" /etc/nginx/sites-available/default
+echo "$new_config" > /etc/nginx/sites-available/default
 sudo service nginx restart
-
