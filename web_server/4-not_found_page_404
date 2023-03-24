@@ -9,8 +9,8 @@ echo "<!DOCTYPE html>
   <title>404 Not Found</title>
 </head>
 <body>
-  <h1>404 Not Found</h1>
+  <h1>404/h1>
   <p>Ceci n'est pas une page</p>
 </body>
-</html>" | sudo tee /var/www/html/404.html >/dev/null
+</html>" | sudo tee /var/www/html/custom_404.html >/dev/null
 sudo service nginx restart
