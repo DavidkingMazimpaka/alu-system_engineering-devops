@@ -6,7 +6,7 @@ apt-get install -y nginx
 echo "Holberton School" > sudo tee /var/www/html/index.nginx-debian.html
 
 # configuring the the 404 error custom page
-echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
+# echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
 ERRDIR="\\\n\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\troot \/usr\/share\/nginx\/html;\n\t\tinternal;\n\t}\n"
 SRC="/etc/nginx/sites-available/default"
 echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
