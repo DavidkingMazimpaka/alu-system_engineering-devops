@@ -8,7 +8,8 @@ sudo mkdir /etc/nginx/html
 sudo touch /etc/nginx/html/index.html
 
 echo "Holberton School" | sudo tee /var/www/html/index.nginx-debian.html
-echo "Ceci n'est pas une page" > /etc/nginx/html/err404.html
+echo "Ceci n'est pas une page" > /etc/nginx/html/404.html
+
 
 # Create custom 404 error page
 echo "<!DOCTYPE html>
@@ -20,17 +21,18 @@ echo "<!DOCTYPE html>
   <h1>404 Not Found</h1>
   <p>Ceci n'est pas une page</p>
 </body>
-</html>" | sudo tee /var/www/html/err404.html >/dev/nullservice nginx restart
+</html>" | sudo tee /var/www/html/404.html >/dev/nullservice nginx restart
 
 printf %s "server {
-    listen      80 default_server;
-    listen      [::]:80 default_server;
-    root        /etc/nginx/html;
-    index       index.html index.htm;
-	error_page 404 /err404.html;
-    location /404 {
+     listen      80 default_server;
+     listen      [::]:80 default_server;
+     root        /etc/nginx/html;
+     index       index.html index.htm;
+     error_page 404 /404.html;
+     location /404 {
         root /etc/nginx/html;
         internal;
-    }
-}" > /etc/nginx/sites-available/default
-sudo service nginx restart
+     }
+}
+" > /etc/nginx/sites-available/default
+service nginx restart
